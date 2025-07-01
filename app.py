@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import random
+import openpyxl
 
 # Set page configuration
 st.set_page_config(page_title="Daily Health Prompts", layout="centered")
