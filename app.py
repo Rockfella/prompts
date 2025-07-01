@@ -2,24 +2,23 @@ import streamlit as st
 import pandas as pd
 import random
 
-st.set_page_config(page_title="Daily Health Prompts", layout="centered")
+# Set page configuration
+st.set_page_config(page_title="Daily Prompts", layout="centered")
 
 st.title("🧠 Daily Prompts")
 st.markdown("Take a screenshot to save your daily card. Tap a button to re-randomize a question.")
 
-# Load Excel file
-df = pd.read_excel("prompts.xlsx", engine="openpyxl", header=None)
+# Load the Excel file and read only the first two columns
+df = pd.read_excel("health_prompts.xlsx", engine="openpyxl", header=None, usecols=[0, 1])
+df.columns = ["Category", "Prompt"]
 
-# Extract categories and prompts
+# Group prompts by category
 categories = {}
-for index, row in df.iterrows():
-    if index < 2:
-        continue
-    for col in [0, 3]:
-        category = row[col]
-        prompt = row[col + 1] if col + 1 < len(row) else None
-        if pd.notna(category) and pd.notna(prompt):
-            categories.setdefault(category, []).append(prompt)
+for _, row in df.iterrows():
+    category = row["Category"]
+    prompt = row["Prompt"]
+    if pd.notna(category) and pd.notna(prompt):
+        categories.setdefault(category, []).append(prompt)
 
 # Initialize session state
 for cat in categories:
