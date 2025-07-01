@@ -16,7 +16,7 @@ color2 = f"#{(today.month * 15 % 256):02x}{(today.day * 10 % 256):02x}{(today.ye
 st.markdown(
     f"""
     <style>
-    body {{
+    [data-testid="stAppViewContainer"] > .main {{
         background: linear-gradient(135deg, {color1}, {color2});
         background-attachment: fixed;
     }}
