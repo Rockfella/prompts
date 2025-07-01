@@ -59,7 +59,8 @@ for cat in categories:
     col1, col2 = st.columns([4, 1])
     with col1:
         st.subheader(cat)
-        #st.markdown(f"**{st.session_state[f'prompt_{cat}']}**")
         st.button(f"**{st.session_state[f'prompt_{cat}']}**", key=f"btn_{cat}", on_click=update_prompt, args=(cat,))
-    with col2:
+        #st.markdown(f"**{st.session_state[f'prompt_{cat}']}**")
+        #st.button(f"**{st.session_state[f'prompt_{cat}']}**", key=f"btn_{cat}", on_click=update_prompt, args=(cat,))
+    #with col2:
         #st.button(f"**{st.session_state[f'prompt_{cat}']}**", key=f"btn_{cat}", on_click=update_prompt, args=(cat,))
