@@ -2,18 +2,16 @@ import streamlit as st
 import pandas as pd
 import random
 
-# Set page configuration
 st.set_page_config(page_title="Daily Health Prompts", layout="centered")
 
 st.title("🧠 Daily Health Prompts")
 st.markdown("Take a screenshot to save your daily card. Tap a button to re-randomize a question.")
 
-# Read the Excel file
+# Load Excel file
 df = pd.read_excel("health_prompts.xlsx", engine="openpyxl", header=None)
 
-# Extract categories and prompts from the structured columns
+# Extract categories and prompts
 categories = {}
-
 for index, row in df.iterrows():
     if index < 2:
         continue
@@ -23,28 +21,16 @@ for index, row in df.iterrows():
         if pd.notna(category) and pd.notna(prompt):
             categories.setdefault(category, []).append(prompt)
 
-# Initialize session state for each category
+# Initialize session state
 for cat in categories:
     key = f"prompt_{cat}"
     if key not in st.session_state:
         st.session_state[key] = random.choice(categories[cat])
 
-# Track which button was pressed
-if "reroll_key" not in st.session_state:
-    st.session_state.reroll_key = None
-
-# Display all categories and buttons
+# Display each category in a form
 for cat in categories:
-    col1, col2 = st.columns([4, 1])
-    with col1:
+    with st.form(key=f"form_{cat}"):
         st.subheader(cat)
         st.markdown(f"**{st.session_state[f'prompt_{cat}']}**")
-    with col2:
-        if st.button("🔄", key=f"btn_{cat}"):
-            st.session_state.reroll_key = cat
-
-# Apply reroll after rendering all buttons
-if st.session_state.reroll_key:
-    cat = st.session_state.reroll_key
-    st.session_state[f"prompt_{cat}"] = random.choice(categories[cat])
-    st.session_state.reroll_key = None
+        if st.form_submit_button("🔄 New question"):
+            st.session_state[f"prompt_{cat}"] = random.choice(categories[cat])
