@@ -9,7 +9,7 @@ st.title("🧠 Daily Prompts")
 st.markdown("Take a screenshot to save your daily card. Tap a button to re-randomize a question.")
 
 # Load the Excel file and read only the first two columns
-df = pd.read_excel("health_prompts.xlsx", engine="openpyxl", header=None, usecols=[0, 1])
+df = pd.read_excel("prompts.xlsx", engine="openpyxl", header=None, usecols=[0, 1])
 df.columns = ["Category", "Prompt"]
 
 # Group prompts by category
