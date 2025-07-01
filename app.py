@@ -19,18 +19,24 @@ st.markdown(
     section.main > div {{
         background: linear-gradient(135deg, {color1}, {color2});
         background-attachment: fixed;
-        padding: 2rem;
+        padding: 1rem;  /* Reduced padding */
         border-radius: 10px;
     }}
     .question-row {{
-        margin-bottom: 0.2rem;
+        margin-bottom: 0.1rem;
+        padding: 0.2rem 0;
     }}
-    h3 {{
-        margin-bottom: 0.2rem !important;
-        margin-top: 0.2rem !important;
-    }}
-    button[kind="secondary"] {{
+    h3, .stSubheader {{
+        margin-bottom: 0.1rem !important;
         margin-top: 0.1rem !important;
+        font-size: 1.1rem !important; /* Slightly smaller headers */
+    }}
+    button[kind="secondary"], .stButton > button {{
+        margin: 0.1rem 0 !important;
+        padding: 0.25rem 0.5rem !important; /* Smaller buttons */
+        font-size: 0.85rem !important;
+    }}
+    .stColumns {{
         margin-bottom: 0.1rem !important;
     }}
     </style>
