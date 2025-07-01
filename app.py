@@ -21,7 +21,9 @@ st.markdown(
         background-attachment: fixed;
         padding: 2rem;
         border-radius: 10px;
-    }}
+    }}.question-row {
+    margin-bottom: 0.5rem;
+    }
     </style>
     """,
     unsafe_allow_html=True
