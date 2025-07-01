@@ -19,25 +19,34 @@ st.markdown(
     section.main > div {{
         background: linear-gradient(135deg, {color1}, {color2});
         background-attachment: fixed;
-        padding: 1rem;  /* Reduced padding */
+        padding: 1rem;
         border-radius: 10px;
     }}
     .question-row {{
-        margin-bottom: 0.1rem;
-        padding: 0.2rem 0;
+        margin: 0 !important;
+        padding: 0.2rem 0 !important;
+        line-height: 1.2 !important;
     }}
     h3, .stSubheader {{
-        margin-bottom: 0.1rem !important;
-        margin-top: 0.1rem !important;
-        font-size: 1.1rem !important; /* Slightly smaller headers */
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 1.05rem !important;
+        line-height: 1.2 !important;
     }}
-    button[kind="secondary"], .stButton > button {{
-        margin: 0.1rem 0 !important;
-        padding: 0.25rem 0.5rem !important; /* Smaller buttons */
+    .stButton > button {{
+        margin: 0 !important;
+        padding: 0.3rem 0.5rem !important;
         font-size: 0.85rem !important;
+        line-height: 1 !important;
+    }}
+    div[data-testid="column"] {{
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
     }}
     .stColumns {{
-        margin-bottom: 0.1rem !important;
+        margin-bottom: 0.2rem !important;
     }}
     </style>
     """,
