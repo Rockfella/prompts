@@ -22,15 +22,28 @@ st.markdown(
         padding: 2rem;
         border-radius: 10px;
     }}
+    button.prompt-button {{
+        background: none;
+        border: none;
+        padding: 0;
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #000;
+        cursor: pointer;
+    }}
+    button.prompt-button:hover {{
+        color: #444;
+        text-decoration: underline;
+    }}
     </style>
     """,
     unsafe_allow_html=True
 )
 
 # Title and date
-st.title(f"🧠 Daily Prompts {date_str}")
-
-
+st.title("🧠 Daily Prompts")
+st.markdown(f"### {date_str}")
+st.markdown("Tap a question to re-randomize it. Take a screenshot to save your daily card.")
 
 # Load the Excel file, skip the first row, and read only the first two columns
 df = pd.read_excel("prompts.xlsx", engine="openpyxl", header=None, skiprows=1, usecols=[0, 1])
@@ -54,11 +67,19 @@ for cat in categories:
 def update_prompt(cat):
     st.session_state[f"prompt_{cat}"] = random.choice(categories[cat])
 
-# Display each category and its question with a re-randomize button
+# Display each category and its prompt as clickable text
 for cat in categories:
-    col1, col2 = st.columns([4, 1])
-    with col1:
-        st.subheader(cat)
-        st.markdown(f"**{st.session_state[f'prompt_{cat}']}**")
-    with col2:
-        st.button("🔄", key=f"btn_{cat}", on_click=update_prompt, args=(cat,))
+    key = f"prompt_{cat}"
+    prompt = st.session_state[key]
+
+    st.subheader(cat)
+
+    # Create a clickable prompt using a form
+    with st.form(key=f"form_{cat}"):
+        st.markdown(
+            f"""
+            <button type="submit" class="prompt-button">{prompt}</button>
+            """,
+            unsafe_allow_html=True
+        )
+        st.form_submit_button("", on_click=update_prompt, args=(cat,))
