@@ -19,32 +19,24 @@ st.markdown(
     section.main > div {{
         background: linear-gradient(135deg, {color1}, {color2});
         background-attachment: fixed;
-        padding: 1rem;
+        padding: 2rem;
+        border-radius: 10px;
     }}
     .question-row {{
         margin-bottom: 0.2rem;
     }}
     h3 {{
-        margin-bottom: 0.1rem !important;
-        margin-top: 0.1rem !important;
-        font-size: 1rem;
+        margin-bottom: 0.2rem !important;
+        margin-top: 0.2rem !important;
     }}
     button[kind="secondary"] {{
-        all: unset;
-        font-size: 0.9rem;
-        font-weight: 500;
-        color: black;
-        cursor: pointer;
-    }}
-    button[kind="secondary"]:hover {{
-        text-decoration: underline;
+        margin-top: 0.1rem !important;
+        margin-bottom: 0.1rem !important;
     }}
     </style>
     """,
     unsafe_allow_html=True
 )
-
-
 
 
 
@@ -82,16 +74,9 @@ for cat in categories:
 
     st.markdown('<div class="question-row">', unsafe_allow_html=True)
 
-    col1, _ = st.columns([1, 0.01])  # Single column layout
+    col1, col2 = st.columns([4, 1])
     with col1:
         st.subheader(cat)
-        st.button(f"{prompt}", key=f"btn_{cat}", on_click=update_prompt, args=(cat,))
+        st.button(f"**{prompt}**", key=f"btn_{cat}", on_click=update_prompt, args=(cat,))
 
     st.markdown('</div>', unsafe_allow_html=True)
-
-
-
-
-
-
-
