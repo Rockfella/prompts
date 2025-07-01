@@ -38,5 +38,5 @@ for cat in categories:
     st.markdown(f"**{st.session_state[cat]}**")
     
     if st.button(f"🔄 New question for {cat}", key=f"btn_{cat}"):
-        st.session_state[cat] = random.choice(categories[cat])
+        st.session_state[cat] = random.choice(categories[cat])
 
