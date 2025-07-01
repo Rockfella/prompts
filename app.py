@@ -56,11 +56,16 @@ def update_prompt(cat):
 
 # Display each category and its question with a re-randomize button
 for cat in categories:
+    key = f"prompt_{cat}"
+    prompt = st.session_state[key]
+
+    # Wrap each row in a div with a custom class
+    st.markdown('<div class="question-row">', unsafe_allow_html=True)
+
     col1, col2 = st.columns([4, 1])
     with col1:
         st.subheader(cat)
-        st.button(f"**{st.session_state[f'prompt_{cat}']}**", key=f"btn_{cat}", on_click=update_prompt, args=(cat,))
-        #st.markdown(f"**{st.session_state[f'prompt_{cat}']}**")
-        #st.button(f"**{st.session_state[f'prompt_{cat}']}**", key=f"btn_{cat}", on_click=update_prompt, args=(cat,))
-    #with col2:
-        #st.button(f"**{st.session_state[f'prompt_{cat}']}**", key=f"btn_{cat}", on_click=update_prompt, args=(cat,))
+        st.button(f"**{prompt}**", key=f"btn_{cat}", on_click=update_prompt, args=(cat,))
+
+    st.markdown('</div>', unsafe_allow_html=True)
+
