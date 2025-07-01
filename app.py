@@ -19,24 +19,33 @@ st.markdown(
     section.main > div {{
         background: linear-gradient(135deg, {color1}, {color2});
         background-attachment: fixed;
-        padding: 2rem;
-        border-radius: 10px;
+        padding: 1rem;
     }}
-    .question-row {{
-        margin-bottom: 0.2rem;
+    .question-block {{
+        margin-bottom: 0.3rem;
+        padding: 0.3rem 0.5rem;
+        background-color: rgba(255, 255, 255, 0.6);
+        border-radius: 6px;
     }}
-    h3 {{
-        margin-bottom: 0.2rem !important;
-        margin-top: 0.2rem !important;
+    .category {{
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 0.1rem;
     }}
-    button[kind="secondary"] {{
-        margin-top: 0.1rem !important;
-        margin-bottom: 0.1rem !important;
+    .prompt {{
+        font-size: 0.85rem;
+        font-weight: 500;
+        cursor: pointer;
+        color: #000;
+    }}
+    .prompt:hover {{
+        text-decoration: underline;
     }}
     </style>
     """,
     unsafe_allow_html=True
 )
+
 
 
 
@@ -72,14 +81,18 @@ for cat in categories:
     key = f"prompt_{cat}"
     prompt = st.session_state[key]
 
-    st.markdown('<div class="question-row">', unsafe_allow_html=True)
+    st.markdown(
+        f"""
+        <div class="question-block">
+            <div class="category">{cat}</div>
+            <div class="prompt" onclick="window.location.href='?clicked={cat}'">{prompt}</div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
-    col1, col2 = st.columns([4, 1])
-    with col1:
-        st.subheader(cat)
-        st.button(f"**{prompt}**", key=f"btn_{cat}", on_click=update_prompt, args=(cat,))
 
-    st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
