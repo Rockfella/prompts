@@ -63,7 +63,6 @@ for cat in categories:
     key = f"prompt_{cat}"
     prompt = st.session_state[key]
 
-    # Wrap each row in a div with a custom class
     st.markdown('<div class="question-row">', unsafe_allow_html=True)
 
     col1, col2 = st.columns([4, 1])
@@ -72,4 +71,5 @@ for cat in categories:
         st.button(f"**{prompt}**", key=f"btn_{cat}", on_click=update_prompt, args=(cat,))
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
