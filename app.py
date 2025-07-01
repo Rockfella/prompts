@@ -23,12 +23,21 @@ st.markdown(
         border-radius: 10px;
     }}
     .question-row {{
-        margin-bottom: 0.1rem;
+        margin-bottom: 0.2rem;
+    }}
+    h3 {{
+        margin-bottom: 0.2rem !important;
+        margin-top: 0.2rem !important;
+    }}
+    button[kind="secondary"] {{
+        margin-top: 0.1rem !important;
+        margin-bottom: 0.1rem !important;
     }}
     </style>
     """,
     unsafe_allow_html=True
 )
+
 
 
 # Title and date
@@ -71,5 +80,6 @@ for cat in categories:
         st.button(f"**{prompt}**", key=f"btn_{cat}", on_click=update_prompt, args=(cat,))
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
