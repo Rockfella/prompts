@@ -36,4 +36,4 @@ for cat in categories:
     with col2:
         if st.button("🔄", key=f"btn_{cat}"):
             st.session_state[f"prompt_{cat}"] = random.choice(categories[cat])
-            st.experimental_set_query_params(updated=cat)  # harmless trigger to refresh state
+            st.query_params["updated"] = cat  # harmless trigger to refresh state
