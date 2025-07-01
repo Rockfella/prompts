@@ -23,7 +23,7 @@ st.markdown(
         border-radius: 10px;
     }}
     .question-row {{
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.1rem;
     }}
     </style>
     """,
