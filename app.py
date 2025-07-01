@@ -28,9 +28,9 @@ st.markdown(
 )
 
 # Title and date
-st.title("🧠 Daily Prompts")
-st.markdown(f"### {date_str}")
-st.markdown("Take a screenshot to save your daily card. Tap a button to re-randomize a question.")
+st.title(f"🧠 Daily Prompts {date_str}")
+
+
 
 # Load the Excel file, skip the first row, and read only the first two columns
 df = pd.read_excel("prompts.xlsx", engine="openpyxl", header=None, skiprows=1, usecols=[0, 1])
