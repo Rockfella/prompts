@@ -36,6 +36,7 @@ for cat in categories:
 for cat in categories:
     st.subheader(cat)
     st.markdown(f"**{st.session_state[cat]}**")
-    if st.button(f"🔄 New question for {cat}"):
-        st.session_state[cat] = random.choice(categories[cat])
-        st.experimental_rerun()
+    
+    if st.button(f"🔄 New question for {cat}", key=f"btn_{cat}"):
+        st.session_state[cat] = random.choice(categories[cat])
+
