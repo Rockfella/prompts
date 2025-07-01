@@ -22,18 +22,15 @@ st.markdown(
         padding: 2rem;
         border-radius: 10px;
     }}
-    button.prompt-button {{
-        background: none;
-        border: none;
-        padding: 0;
+    a.prompt-link {{
         font-size: 1.1rem;
         font-weight: bold;
-        color: #000;
-        cursor: pointer;
+        color: black;
+        text-decoration: none;
     }}
-    button.prompt-button:hover {{
-        color: #444;
+    a.prompt-link:hover {{
         text-decoration: underline;
+        color: #333;
     }}
     </style>
     """,
@@ -43,7 +40,7 @@ st.markdown(
 # Title and date
 st.title("🧠 Daily Prompts")
 st.markdown(f"### {date_str}")
-st.markdown("Tap a question to re-randomize it. Take a screenshot to save your daily card.")
+st.markdown("Click a question to re-randomize it. Take a screenshot to save your daily card.")
 
 # Load the Excel file, skip the first row, and read only the first two columns
 df = pd.read_excel("prompts.xlsx", engine="openpyxl", header=None, skiprows=1, usecols=[0, 1])
@@ -57,29 +54,27 @@ for _, row in df.iterrows():
     if pd.notna(category) and pd.notna(prompt):
         categories.setdefault(category, []).append(prompt)
 
+# Get query params to detect clicks
+query_params = st.experimental_get_query_params()
+clicked_cat = query_params.get("clicked", [None])[0]
+
 # Initialize session state
 for cat in categories:
     key = f"prompt_{cat}"
     if key not in st.session_state:
         st.session_state[key] = random.choice(categories[cat])
 
-# Define update function
-def update_prompt(cat):
-    st.session_state[f"prompt_{cat}"] = random.choice(categories[cat])
+# If a category was clicked, update its prompt
+if clicked_cat in categories:
+    st.session_state[f"prompt_{clicked_cat}"] = random.choice(categories[clicked_cat])
+    # Clear the query param to avoid repeated updates
+    st.experimental_set_query_params()
 
-# Display each category and its prompt as clickable text
+# Display each category and its prompt as a clickable link
 for cat in categories:
-    key = f"prompt_{cat}"
-    prompt = st.session_state[key]
-
+    prompt = st.session_state[f"prompt_{cat}"]
     st.subheader(cat)
-
-    # Create a clickable prompt using a form
-    with st.form(key=f"form_{cat}"):
-        st.markdown(
-            f"""
-            <button type="submit" class="prompt-button">{prompt}</button>
-            """,
-            unsafe_allow_html=True
-        )
-        st.form_submit_button("", on_click=update_prompt, args=(cat,))
+    st.markdown(
+        f'<a href="?clicked={cat}" class="prompt-link">{prompt}</a>',
+        unsafe_allow_html=True
+    )
