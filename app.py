@@ -4,7 +4,7 @@ import random
 
 st.set_page_config(page_title="Daily Health Prompts", layout="centered")
 
-st.title("🧠 Daily Health Prompts")
+st.title("🧠 Daily Prompts")
 st.markdown("Take a screenshot to save your daily card. Tap a button to re-randomize a question.")
 
 # Load Excel file
