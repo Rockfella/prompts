@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import random
-import openpyxl
 
 # Set page configuration
 st.set_page_config(page_title="Daily Health Prompts", layout="centered")
@@ -32,11 +31,19 @@ for cat in categories:
     if cat not in st.session_state:
         st.session_state[cat] = random.choice(categories[cat])
 
+# Track which button was pressed
+if "reroll" not in st.session_state:
+    st.session_state.reroll = None
+
 # Display each category and its question with a re-randomize button
 for cat in categories:
     st.subheader(cat)
     st.markdown(f"**{st.session_state[cat]}**")
-    
     if st.button(f"🔄 New question for {cat}", key=f"btn_{cat}"):
-        st.session_state[cat] = random.choice(categories[cat])
+        st.session_state.reroll = cat
 
+# Apply the reroll after all buttons are rendered
+if st.session_state.reroll:
+    cat = st.session_state.reroll
+    st.session_state[cat] = random.choice(categories[cat])
+    st.session_state.reroll = None
