@@ -27,13 +27,11 @@ for cat in categories:
     if key not in st.session_state:
         st.session_state[key] = random.choice(categories[cat])
 
-# Display each category and its question with a re-randomize button
+# Display each category in its own form
 for cat in categories:
-    col1, col2 = st.columns([4, 1])
-    with col1:
+    with st.form(key=f"form_{cat}"):
         st.subheader(cat)
         st.markdown(f"**{st.session_state[f'prompt_{cat}']}**")
-    with col2:
-        if st.button("🔄", key=f"btn_{cat}"):
+        submitted = st.form_submit_button("🔄 New question")
+        if submitted:
             st.session_state[f"prompt_{cat}"] = random.choice(categories[cat])
-            st.query_params["updated"] = cat  # harmless trigger to refresh state
