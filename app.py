@@ -27,12 +27,6 @@ for cat in categories:
     if key not in st.session_state:
         st.session_state[key] = random.choice(categories[cat])
 
-# Track last clicked and reroll state
-if "last_clicked" not in st.session_state:
-    st.session_state.last_clicked = None
-if "just_rerolled" not in st.session_state:
-    st.session_state.just_rerolled = False
-
 # Display each category and its question with a re-randomize button
 for cat in categories:
     col1, col2 = st.columns([4, 1])
@@ -41,13 +35,5 @@ for cat in categories:
         st.markdown(f"**{st.session_state[f'prompt_{cat}']}**")
     with col2:
         if st.button("🔄", key=f"btn_{cat}"):
-            if not st.session_state.just_rerolled:
-                st.session_state.last_clicked = cat
-                st.session_state.just_rerolled = True
-                st.experimental_rerun()
-
-# Apply reroll after rerun
-if st.session_state.just_rerolled and st.session_state.last_clicked:
-    cat = st.session_state.last_clicked
-    st.session_state[f"prompt_{cat}"] = random.choice(categories[cat])
-    st.session_state.just_rerolled = False
+            st.session_state[f"prompt_{cat}"] = random.choice(categories[cat])
+            st.experimental_set_query_params(updated=cat)  # harmless trigger to refresh state
