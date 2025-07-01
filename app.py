@@ -8,7 +8,7 @@ st.title("🧠 Daily Prompts")
 st.markdown("Take a screenshot to save your daily card. Tap a button to re-randomize a question.")
 
 # Load Excel file
-df = pd.read_excel("health_prompts.xlsx", engine="openpyxl", header=None)
+df = pd.read_excel("prompts.xlsx", engine="openpyxl", header=None)
 
 # Extract categories and prompts
 categories = {}
