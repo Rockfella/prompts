@@ -15,16 +15,19 @@ color2 = f"#{(today.month * 15 % 256):02x}{(today.day * 10 % 256):02x}{(today.ye
 # Inject CSS for gradient background
 st.markdown(
     f"""
-    <style>
-    section.main > div {{
-        background: linear-gradient(135deg, {color1}, {color2});
-        background-attachment: fixed;
-        padding: 2rem;
-        border-radius: 10px;
-    }}.question-row {
+    
+<style>
+section.main > div {
+    background: linear-gradient(135deg, {{color1}}, {{color2}});
+    background-attachment: fixed;
+    padding: 2rem;
+    border-radius: 10px;
+}
+.question-row {
     margin-bottom: 0.5rem;
-    } 
-    </style>
+}
+</style>
+
     """,
     unsafe_allow_html=True
 )
