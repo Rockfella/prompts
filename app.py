@@ -16,20 +16,20 @@ color2 = f"#{(today.month * 15 % 256):02x}{(today.day * 10 % 256):02x}{(today.ye
 st.markdown(
     f"""
     <style>
-section.main > div {
-    background: linear-gradient(135deg, {{color1}}, {{color2}});
-    background-attachment: fixed;
-    padding: 2rem;
-    border-radius: 10px;
-}
-.question-row {
-    margin-bottom: 0.5rem;
-}
-</style>
-
+    section.main > div {{
+        background: linear-gradient(135deg, {color1}, {color2});
+        background-attachment: fixed;
+        padding: 2rem;
+        border-radius: 10px;
+    }}
+    .question-row {{
+        margin-bottom: 0.5rem;
+    }}
+    </style>
     """,
     unsafe_allow_html=True
 )
+
 
 # Title and date
 st.title(f"🧠 {date_str}")
