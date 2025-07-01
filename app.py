@@ -14,17 +14,14 @@ df = pd.read_excel("health_prompts.xlsx", engine="openpyxl", header=None)
 # Extract categories and prompts from the structured columns
 categories = {}
 
-# Iterate through the rows starting from row 3 (index 2)
 for index, row in df.iterrows():
     if index < 2:
         continue
-    for col in [0, 3]:  # Column 0 and 3 contain categories
+    for col in [0, 3]:
         category = row[col]
         prompt = row[col + 1] if col + 1 < len(row) else None
         if pd.notna(category) and pd.notna(prompt):
-            if category not in categories:
-                categories[category] = []
-            categories[category].append(prompt)
+            categories.setdefault(category, []).append(prompt)
 
 # Initialize session state for each category
 for cat in categories:
@@ -32,7 +29,11 @@ for cat in categories:
     if key not in st.session_state:
         st.session_state[key] = random.choice(categories[cat])
 
-# Display each category and its question with a re-randomize button
+# Track which button was pressed
+if "reroll_key" not in st.session_state:
+    st.session_state.reroll_key = None
+
+# Display all categories and buttons
 for cat in categories:
     col1, col2 = st.columns([4, 1])
     with col1:
@@ -40,4 +41,10 @@ for cat in categories:
         st.markdown(f"**{st.session_state[f'prompt_{cat}']}**")
     with col2:
         if st.button("🔄", key=f"btn_{cat}"):
-            st.session_state[f"prompt_{cat}"] = random.choice(categories[cat])
+            st.session_state.reroll_key = cat
+
+# Apply reroll after rendering all buttons
+if st.session_state.reroll_key:
+    cat = st.session_state.reroll_key
+    st.session_state[f"prompt_{cat}"] = random.choice(categories[cat])
+    st.session_state.reroll_key = None
